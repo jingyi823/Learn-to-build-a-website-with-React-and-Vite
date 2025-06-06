@@ -1,1 +1,1 @@
-# Learn-React-with-Vite-by-building-a-website
+# Learn-to-build-a-website-with-React-and-Vite
