@@ -31,10 +31,25 @@ function Quiz() {
     const selectedAnswer = userAnswers[currentQuestion];
     
     function handleSelectOption(option) {
+        console.log("Selected option:", option); // Logs the selected option to the console
+
         const newUserAnswers = [...userAnswers];
         newUserAnswers[currentQuestion] = option;
 
         setUserAnswers(newUserAnswers);
+
+    // Send to Django backend
+    fetch('http://localhost:8000/api/log-answer/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+          question: questionBank[currentQuestion].question,
+          selected: option
+      })
+  })
+  .then(res => res.json())
+  .then(data => console.log("Response from backend:", data))
+  .catch(err => console.error("Failed to send to Django:", err));
     }
 
     function goToNext() {
